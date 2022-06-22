@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Tasks
+  # CategoryController Template
   class CategoryController < ApplicationController
     def index
       @categories = Category.all
@@ -41,6 +44,10 @@ module Tasks
     end
 
     def destroy
+      # before deleting category, find then delete all tasks associated with it
+      tasks = Task.where(category_id: params[:id])
+      tasks.delete_all unless tasks.length.zero?
+
       # if category has been found delete
       # after update go to category list
       @category = Category.find_by(id: params[:id])
