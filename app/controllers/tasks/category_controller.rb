@@ -18,6 +18,8 @@ module Tasks
       else
         render :new, status: :unprocessable_entity
       end
+    rescue ArgumentError
+      render :new, status: :unprocessable_entity
     end
 
     def edit
@@ -39,7 +41,12 @@ module Tasks
     end
 
     def destroy
-      @category = Category.find(params[:id])
+      # if category has been found delete
+      # after update go to category list
+      @category = Category.find_by(id: params[:id])
+
+      redirect_to categories_path, notice: "category doesn't exist" unless @category.present?
+
       @category.delete
       redirect_to categories_path, notice: "successfully deleted #{@category[:name]} category"
     end
