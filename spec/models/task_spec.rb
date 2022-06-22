@@ -9,6 +9,13 @@ RSpec.describe Task, type: :model do
     )
   end
 
+  describe 'Associations' do
+    it '1, should belongs to category' do
+      task = Task.reflect_on_association(:category)
+      expect(task.macro).to eq(:belongs_to)
+    end
+  end
+
   describe 'Attributes' do
     describe 'name' do
       it '1, must be a string' do

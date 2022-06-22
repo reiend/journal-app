@@ -6,6 +6,12 @@ RSpec.describe Category, type: :model do
       name: 'category'
     )
   end
+  describe 'Associations' do
+    it '1, should have many tasks' do
+      category = Category.reflect_on_association(:tasks)
+      expect(category.macro).to eq(:has_many)
+    end
+  end
 
   describe 'Attributes' do
     describe 'name' do
