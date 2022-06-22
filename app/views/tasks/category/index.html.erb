@@ -1,0 +1,18 @@
+<h2>Category list</h2>
+<table>
+  <thead>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+    <tr>
+      <td><%= category[:name] %></td>
+      <td> <%= link_to "edit", category_edit_path(category) %> </td>
+      <td> <%= button_to "delete", category_delete_path(category), method: :delete %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

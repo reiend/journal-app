@@ -1,0 +1,22 @@
+
+<h2>Edit new Category</h2>
+
+<%= form_with model: @category, url: category_update_path do |form|  %>
+
+  <% if form.object.errors.any? %>
+    <div class="alert alert-danger">
+      <% form.object.errors.full_messages.each do |message| %>
+        <div> <span><%= message %></span> </div>
+    <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "@category" %>
+  </div>
+
+  <%= form.submit "update" %>
+  <%= link_to "category list", categories_path %>
+
+<% end %>
