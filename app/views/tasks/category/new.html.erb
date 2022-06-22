@@ -1,0 +1,12 @@
+
+<h2>Create new Category</h2>
+
+<%= form_with model: @category, url: category_create_path do |form|  %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "@category" %>
+  </div>
+  <%= form.submit "create" %>
+  <%= link_to "category list", categories_path %>
+<% end %>
