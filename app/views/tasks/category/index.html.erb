@@ -1,12 +1,19 @@
 <h2>Category list</h2>
 <div>
   <span> <%= link_to "Create new Category", category_new_path %> </span>
-  <span> <%= link_to "List of Task", tasks_path %> </span>
+  <span> <%= link_to "home", root_path %> </span>
 </div>
 
-<ul>
-  <% @categories.each do |category| %>
-    <li><%= link_to category.name, category_show_path(category) %></li>
-  <% end %>
-</ul>
+<% unless @categories.length.zero? %>
+  <ul>
+    <% @categories.each do |category| %>
+      <li><%= link_to category.name, category_show_path(category) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <div>
+    no categories yet, add category
+  </div>
+<% end %>
+
 

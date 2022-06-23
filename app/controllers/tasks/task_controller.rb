@@ -10,9 +10,9 @@ module Tasks
     def show
       # if task doesn't exist go to task list
       # show message that it doesn't exist
-      task = Task.find_by(id: params[:id])
+      task = current_user.tasks.find_by(id: params[:id])
       if task.present?
-        @task = Task.find(params[:id])
+        @task = current_user.tasks.find(params[:id])
         @category = @task.category
       else
         redirect_to tasks_path, alert: "task doesn't exist"
@@ -21,7 +21,7 @@ module Tasks
 
     def new
       @task = Task.new
-      @categories = Category.all.order(name: :asc)
+      @categories = current_user.categories.all.order(name: :asc)
     end
 
     def create
@@ -45,7 +45,7 @@ module Tasks
       end
 
       # create new task based on category
-      @task = Task.new(name:, description:, deadline:, category_id:)
+      @task = current_user.tasks.new(name:, description:, deadline:, category_id:)
 
       # if task successfully save ask to enter another task
       if @task.save
@@ -60,12 +60,12 @@ module Tasks
     end
 
     def edit
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params[:id])
       @categories = Category.all.order(name: :asc)
     end
 
     def update
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params[:id])
 
       # check user input if enter valid number that can be converted to hours
       hour = task_params[:hours].match(/\A-?(?:\d+(?:\.\d*)?|\.\d+)\z/)
@@ -101,7 +101,7 @@ module Tasks
     def destroy
       # if task has been found delete
       # after delete go to task list
-      @task = Task.find_by(id: params[:id])
+      @task = current_user.tasks.find_by(id: params[:id])
 
       redirect_to tasks_path, notice: "category doesn't exist" unless @task.present?
 
