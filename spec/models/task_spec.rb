@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe "Task Model", type: :model do
   let(:task) do
     Task.new(
       name: 'task1',
@@ -45,7 +45,6 @@ RSpec.describe Task, type: :model do
 
     describe 'deadline' do
       it '1, must be instance of TimeWithZone  ' do
-        p task.deadline.class
         expect(task.deadline).to be_instance_of ActiveSupport::TimeWithZone
       end
       it '2, must have a present datetime' do

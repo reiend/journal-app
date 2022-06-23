@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
+RSpec.describe "Category Model", type: :model do
   let(:category) do
     Category.new(
       name: 'category'
