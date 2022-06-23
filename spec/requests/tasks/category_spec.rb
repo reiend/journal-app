@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Categories Request', type: :request do
+  before(:each) do
+    @user = FactoryBot.create :user
+
+    sign_in @user
+  end
   describe 'Get' do
     describe 'index' do
       before(:each) do
@@ -28,7 +33,7 @@ RSpec.describe 'Categories Request', type: :request do
 
     describe 'edit' do
       before(:each) do
-        category = Category.create(name: 'category')
+        category = @user.categories.create(name: 'category')
 
         get "/category/#{category.id}/edit"
       end
@@ -42,10 +47,10 @@ RSpec.describe 'Categories Request', type: :request do
 
     describe 'show' do
       before(:each) do
-        category = Category
-                   .create(
-                     name: 'task'
-                   )
+        category = @user.categories
+                        .create(
+                          name: 'task'
+                        )
         get "/category/#{category.id}"
       end
       it '1, should have a successful response' do
@@ -75,7 +80,7 @@ RSpec.describe 'Categories Request', type: :request do
   describe 'Patch' do
     describe 'update' do
       before(:each) do
-        category = Category.create(name: 'category')
+        category = @user.categories.create(name: 'category')
         patch "/category/#{category.id}", params: {
           category: {
             name: 'category'
@@ -91,7 +96,7 @@ RSpec.describe 'Categories Request', type: :request do
   describe 'Delete' do
     describe 'destroy' do
       before(:each) do
-        category = Category.create(name: 'category')
+        category = @user.categories.create(name: 'category')
         delete "/category/#{category.id}"
       end
       it '1, should have a redirect response' do
