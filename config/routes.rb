@@ -23,6 +23,12 @@ Rails.application.routes.draw do
              }
   # end authentication
 
+  # user
+  scope module: 'users' do
+    get 'task/today', to: 'user#view_task_today'
+  end
+  # end of user
+
   # NOTE: -> show must be below new request routes
   scope module: 'tasks' do
     # category
