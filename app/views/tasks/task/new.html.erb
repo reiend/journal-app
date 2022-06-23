@@ -36,11 +36,15 @@
   </div>
 
   <div>
-    <%= form.submit "create" %>
+    <div>
+      <span> <%= form.submit "create" %> </span>
+      <span> <%= link_to "cancel", tasks_path %> </span>
+    </div>
+    <div>
+      <span> <%= link_to "List of Category", categories_path %> </span>
+      <span> <%= link_to "List of Task", tasks_path %> </span>
+    </div>
   </div>
 
-  <div>
-    <%= link_to "task list", tasks_path %>
-  </div>
 
 <% end %>
