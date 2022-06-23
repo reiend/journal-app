@@ -34,6 +34,12 @@ module Tasks
         return
       end
 
+      # no negative hours input
+      if params[:hours].to_d <= 0
+        redirect_to task_new_path, notice: 'invalid time'
+        return
+      end
+
       name = task_params[:name]
       description = task_params[:description]
       deadline = (DateTime.now + task_params[:hours].to_d.hour)
@@ -73,6 +79,12 @@ module Tasks
       # if not valid nu,ber for hour just ask again for new task
       if hour.nil?
         redirect_to task_edit_path(@task), notice: 'invalid time'
+        return
+      end
+
+      # no negative hours input
+      if params[:hours].to_d <= 0
+        redirect_to task_new_path, notice: 'invalid time'
         return
       end
 
