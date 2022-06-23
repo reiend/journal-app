@@ -11,4 +11,10 @@ class User < ApplicationRecord
 
   validates :password,
             length: { minimum: 6 }
+
+  def task_today
+    tasks.all.filter do |task|
+      task[:date_created] <= Date.today
+    end
+  end
 end

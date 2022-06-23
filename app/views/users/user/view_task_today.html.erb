@@ -1,0 +1,14 @@
+<h2>Tasks Today</h2>
+
+<% unless @today_tasks.length.zero?  %>
+  <ul>
+    <% @today_tasks.each do |task| %>
+      <li> <%= link_to task[:name], task_show_path(task) %> </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div>
+    <span>No Task Today</span>
+    <% link_to "create task", task_new_path %>
+  </div>
+<% end %>
