@@ -35,7 +35,7 @@ module Tasks
       end
 
       # no negative hours input
-      if params[:hours].to_d <= 0
+      if task_params[:hours].to_d <= 0
         redirect_to task_new_path, notice: 'invalid time'
         return
       end
@@ -83,7 +83,7 @@ module Tasks
       end
 
       # no negative hours input
-      if params[:hours].to_d <= 0
+      if task_params[:hours].to_d <= 0
         redirect_to task_new_path, notice: 'invalid time'
         return
       end
