@@ -4,7 +4,7 @@
 <%= form_with model: @category, url: category_create_path do |form|  %>
 
   <% if form.object.errors.any? %>
-    <div class="alert alert-danger">
+    <div>
       <% form.object.errors.full_messages.each do |message| %>
         <div> <span><%= message %></span> </div>
     <% end %>
@@ -15,7 +15,17 @@
     <%= form.label :name %>
     <%= form.text_field :name, placeholder: "@category" %>
   </div>
-  <%= form.submit "create" %>
-  <%= link_to "category list", categories_path %>
+
+
+  <div>
+    <div>
+      <span> <%= form.submit "create" %> </span>
+      <span> <%= link_to "cancel", categories_path %> </span>
+    </div>
+    <div>
+      <span> <%= link_to "List of Category", categories_path %> </span>
+      <span> <%= link_to "List of Task", tasks_path %> </span>
+    </div>
+  </div>
 
 <% end %>

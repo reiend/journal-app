@@ -11,6 +11,12 @@ module Tasks
       @category = Category.new
     end
 
+    def show
+      @category = Category.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to categories_path, notice: "category doesn't exist"
+    end
+
     def create
       @category = Category.new(category_params)
 

@@ -1,0 +1,7 @@
+<h2>Task list</h2>
+<div>
+  <span> <%= link_to "Create new Task", task_new_path %> </span>
+  <span> <%= link_to "List of Category", categories_path %> </span>
+</div>
+
+<%= render partial: "shared/tasks", locals: {tasks: @tasks} %>

@@ -1,18 +1,12 @@
 <h2>Category list</h2>
-<table>
-  <thead>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @categories.each do |category| %>
-    <tr>
-      <td><%= category[:name] %></td>
-      <td> <%= link_to "edit", category_edit_path(category) %> </td>
-      <td> <%= button_to "delete", category_delete_path(category), method: :delete %> </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div>
+  <span> <%= link_to "Create new Category", category_new_path %> </span>
+  <span> <%= link_to "List of Task", tasks_path %> </span>
+</div>
 
+<ul>
+  <% @categories.each do |category| %>
+    <li><%= link_to category.name, category_show_path(category) %></li>
+  <% end %>
+</ul>
 

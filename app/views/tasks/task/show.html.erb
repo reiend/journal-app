@@ -1,0 +1,46 @@
+<h2>
+  <%= @task.name %>
+</h2>
+
+<div>
+  <div>
+    <span>
+      description:
+    </span>
+
+    <span>
+      <%= @task.description %>
+    </span>
+  <div>
+
+  <div>
+    <span>
+      category: 
+    </span>
+
+    <span>
+      <%= @category.name %>
+    </span>
+  <div>
+
+  <div>
+    <span>
+      deadline:
+    </span>
+
+    <span>
+      <%= @task.deadline.strftime("%Y-%m-%d / %I:%M:%S") %>
+    </span>
+  <div>
+
+    <div>
+      <span> <%= link_to "edit", task_edit_path(@task) %> </span>
+      <span> <%= button_to "delete", task_delete_path(@task), method: :delete %> </span>
+    </div>
+
+    <div>
+      <span> <%= link_to "List of Task", tasks_path %> </span>
+      <span> <%= link_to "List of Category", categories_path %> </span>
+    </div>
+
+</div>
