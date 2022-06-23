@@ -13,6 +13,7 @@ RSpec.describe 'Task Request', type: :request do
               name: 'task',
               description: 'description',
               deadline: DateTime.now + 24.hour,
+              date_created: Date.today,
               user_id: @user.id
             )
 

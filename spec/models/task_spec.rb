@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Task Model", type: :model do
+RSpec.describe 'Task Model', type: :model do
   let(:task) do
     Task.new(
       name: 'task1',
       description: 'description',
-      deadline: DateTime.now + 24.hour
+      deadline: DateTime.now + 24.hour,
+      date_created: Date.today
     )
   end
 
@@ -49,6 +50,15 @@ RSpec.describe "Task Model", type: :model do
       end
       it '2, must have a present datetime' do
         expect(task.deadline).to(be > DateTime.now)
+      end
+    end
+
+    describe 'deadline' do
+      it '1, must be instance of TimeWithZone  ' do
+        expect(task.date_created).to be_instance_of ActiveSupport::TimeWithZone
+      end
+      it '2, must not have a present datetime' do
+        expect(task.date_created).to(be < DateTime.now)
       end
     end
   end
