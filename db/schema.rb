@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_144227) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_153248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,9 +23,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_144227) do
   create_table "tasks", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.datetime "deadline", default: "2022-06-23 14:52:18", null: false
+    t.datetime "deadline", default: "2022-06-23 15:33:55", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_tasks_on_category_id"
   end
 
+  add_foreign_key "tasks", "categories"
 end

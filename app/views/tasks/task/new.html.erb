@@ -1,0 +1,46 @@
+<h2>Create new Task</h2>
+
+
+<%= form_with model: @task, url: task_create_path do |form| %>
+
+  <% if form.object.errors.any? %>
+    <div>
+      <% form.object.errors.full_messages.each do |message| %>
+        <div> <span><%= message %></span> </div>
+    <% end %>
+    </div>
+  <% end %>
+
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label "hours" %>
+    <%= form.text_field :hours %>
+  </div>
+
+  <div>
+    <%= form.select :category, options_for_select(
+        @categories
+          .collect{|category| [category.name, category.id]}, 
+        ), :prompt => "Select Category"
+    %>
+  </div>
+
+  <div>
+    <%= form.submit "create" %>
+  </div>
+
+  <div>
+    <%= link_to "task list", tasks_path %>
+  </div>
+
+<% end %>
