@@ -1,18 +1,19 @@
 <h2>Category list</h2>
-<table>
-  <thead>
-      <th>Category</th>
-    </tr>
-  </thead>
-  <tbody>
+<div>
+  <span> <%= link_to "Create new Category", category_new_path %> </span>
+  <span> <%= link_to "home", root_path %> </span>
+</div>
+
+<% unless @categories.length.zero? %>
+  <ul>
     <% @categories.each do |category| %>
-    <tr>
-      <td><%= category[:name] %></td>
-      <td> <%= link_to "edit", category_edit_path(category) %> </td>
-      <td> <%= button_to "delete", category_delete_path(category), method: :delete %> </td>
-    </tr>
+      <li><%= link_to category.name, category_show_path(category) %></li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+<% else %>
+  <div>
+    no categories yet, add category
+  </div>
+<% end %>
 
 

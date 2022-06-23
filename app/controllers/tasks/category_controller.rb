@@ -4,15 +4,21 @@ module Tasks
   # CategoryController Template
   class CategoryController < ApplicationController
     def index
-      @categories = Category.all
+      @categories = current_user.categories.all
     end
 
     def new
-      @category = Category.new
+      @category = current_user.categories.new
+    end
+
+    def show
+      @category = current_user.categories.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to categories_path, notice: "category doesn't exist"
     end
 
     def create
-      @category = Category.new(category_params)
+      @category = current_user.categories.new(category_params)
 
       # after category have been created continue to ask to create new category
       # give message that a category has been created
@@ -26,11 +32,11 @@ module Tasks
     end
 
     def edit
-      @category = Category.find(params[:id])
+      @category = current_user.categories.find(params[:id])
     end
 
     def update
-      @category = Category.find(params[:id])
+      @category = current_user.categories.find(params[:id])
 
       # if category has been found update
       # after update go to category list
@@ -45,12 +51,12 @@ module Tasks
 
     def destroy
       # before deleting category, find then delete all tasks associated with it
-      tasks = Task.where(category_id: params[:id])
+      tasks = current_user.tasks.where(category_id: params[:id])
       tasks.delete_all unless tasks.length.zero?
 
       # if category has been found delete
       # after update go to category list
-      @category = Category.find_by(id: params[:id])
+      @category = current_user.categories.find_by(id: params[:id])
 
       redirect_to categories_path, notice: "category doesn't exist" unless @category.present?
 

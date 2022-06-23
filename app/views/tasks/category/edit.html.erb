@@ -16,7 +16,13 @@
     <%= form.text_field :name, placeholder: "@category" %>
   </div>
 
-  <%= form.submit "update" %>
-  <%= link_to "category list", categories_path %>
-
+  <div>
+    <div>
+      <span> <%= form.submit "update" %> </span>
+      <span> <%= link_to "cancel", category_show_path(@category) %> </span>
+    </div>
+    <div>
+      <span> <%= link_to "home", root_path %> </span>
+    </div>
+  </div>
 <% end %>

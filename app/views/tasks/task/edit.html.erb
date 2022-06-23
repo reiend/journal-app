@@ -1,0 +1,48 @@
+<h2>Edit <%= @task.name %> Task</h2>
+
+<%= form_with model: @task, url: task_update_path do |form|  %>
+
+  <% if form.object.errors.any? %>
+    <div class="alert alert-danger">
+      <% form.object.errors.full_messages.each do |message| %>
+        <div> <span><%= message %></span> </div>
+    <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label "hours" %>
+    <%= form.text_field :hours %>
+  </div>
+
+  <div>
+    <%= form.select :category, options_for_select(
+        @categories
+          .collect{|category| [category.name, category.id]}, 
+        ), :prompt => "Select Category"
+    %>
+  </div>
+
+
+  <div>
+    <div>
+      <span> <%= form.submit "update" %> </span>
+      <span> <%= link_to "cancel", category_show_path(@task) %> </span>
+    </div>
+    <div>
+      <span> <%= link_to "home", root_path %> </span>
+    </div>
+  </div>
+
+
+<% end %>

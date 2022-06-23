@@ -1,15 +1,34 @@
 require 'rails_helper'
 
-RSpec.describe 'Categories Request', type: :request do
+RSpec.describe 'Task Request', type: :request do
   before(:each) do
     @user = FactoryBot.create :user
+    @category = @user.categories.create(
+      name: 'category'
+    )
+
+    @task = @category
+            .tasks
+            .create(
+              name: 'task',
+              description: 'description',
+              deadline: DateTime.now + 24.hour,
+              user_id: @user.id
+            )
 
     sign_in @user
   end
+
+  let(:category) do
+    Category.create(
+      name: 'category'
+    )
+  end
+
   describe 'Get' do
     describe 'index' do
       before(:each) do
-        get '/categories'
+        get '/tasks'
       end
       it '1, should have a successful response' do
         expect(response).to have_http_status(200)
@@ -19,39 +38,21 @@ RSpec.describe 'Categories Request', type: :request do
       end
     end
 
-    describe 'new' do
+    describe 'New' do
       before(:each) do
-        get '/category/new'
+        get '/task/new'
       end
       it '1, should have a successful response' do
         expect(response).to have_http_status(200)
       end
-      it '2, render template index' do
+      it '2, render template new' do
         expect(response).to render_template(:new)
       end
     end
 
-    describe 'edit' do
+    describe 'Show' do
       before(:each) do
-        category = @user.categories.create(name: 'category')
-
-        get "/category/#{category.id}/edit"
-      end
-      it '1, should have a successful response' do
-        expect(response).to have_http_status(200)
-      end
-      it '2, render template edit' do
-        expect(response).to render_template(:edit)
-      end
-    end
-
-    describe 'show' do
-      before(:each) do
-        category = @user.categories
-                        .create(
-                          name: 'task'
-                        )
-        get "/category/#{category.id}"
+        get "/task/#{@task.id}"
       end
       it '1, should have a successful response' do
         expect(response).to have_http_status(200)
@@ -65,29 +66,27 @@ RSpec.describe 'Categories Request', type: :request do
   describe 'Post' do
     describe 'create' do
       before(:each) do
-        post '/category/create', params: {
-          category: {
-            name: 'category'
+        post '/task/create', params: {
+          task: {
           }
         }
       end
-      it '1, should have a redirect response' do
+      it '1, invalid params should be have redirect response' do
         expect(response).to have_http_status(302)
       end
     end
   end
 
   describe 'Patch' do
-    describe 'update' do
+    describe 'create' do
       before(:each) do
-        category = @user.categories.create(name: 'category')
-        patch "/category/#{category.id}", params: {
-          category: {
-            name: 'category'
+        patch "/task/#{@task.id}", params: {
+          task: {
+
           }
         }
       end
-      it '1, should have a redirect response' do
+      it '1, invalid params should be have redirect response' do
         expect(response).to have_http_status(302)
       end
     end
@@ -96,8 +95,7 @@ RSpec.describe 'Categories Request', type: :request do
   describe 'Delete' do
     describe 'destroy' do
       before(:each) do
-        category = @user.categories.create(name: 'category')
-        delete "/category/#{category.id}"
+        delete "/task/#{@task.id}"
       end
       it '1, should have a redirect response' do
         expect(response).to have_http_status(302)

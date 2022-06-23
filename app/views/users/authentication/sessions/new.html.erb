@@ -1,0 +1,23 @@
+<h2>Signin</h2>
+
+<%= form_with model: @user, url: user_signin_path do |form|%>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <span> <%= form.submit "signin" %> </span>
+    <span> <%= link_to "create an account", user_signup_path%> </span>
+  </div>
+
+<% end %>
+
+
+

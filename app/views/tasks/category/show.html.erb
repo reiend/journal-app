@@ -1,0 +1,12 @@
+<h2><%= @category.name %></h2>
+  <div>
+    <span> <%= link_to "edit", category_edit_path(@category) %> </span>
+    <span> <%= button_to "delete", category_delete_path(@category), method: :delete %> </span>
+  </div>
+  <div>
+    <span> <%= link_to "List of Category", categories_path %> </span>
+  </div>
+<div>
+
+<h2>Task list</h2>
+<%= render partial: "shared/tasks", locals: {tasks: @category.tasks} %>
