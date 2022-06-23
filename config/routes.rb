@@ -1,4 +1,28 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
+
+  # authentication
+  devise_scope :user do
+    post 'user/signup' => 'users/authentication/registrations#create'
+    post 'user/signin' => 'users/authentication/sessions#create'
+
+    delete 'user/signout' => 'users/authentication/sessions#destroy'
+  end
+
+  devise_for :users,
+             path: 'user',
+             path_names: {
+               sign_in: 'signin',
+               sign_up: 'signup',
+               sign_out: 'signout'
+
+             }, controllers: {
+               registrations: 'users/authentication/registrations',
+               sessions: 'users/authentication/sessions'
+
+             }
+  # end authentication
+
   # NOTE: -> show must be below new request routes
   scope module: 'tasks' do
     # category
