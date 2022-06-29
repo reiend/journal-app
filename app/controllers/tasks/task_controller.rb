@@ -4,7 +4,7 @@ module Tasks
   # TaskController Template
   class TaskController < ApplicationController
     def index
-      @tasks = Task.all
+      @tasks = current_user.all
     end
 
     def show
